@@ -9,8 +9,14 @@ app.get('/', (request, response) => {
   return response.status(200).send('Welcome to BookStore App')
 });
 
-app.listen(PORT, () => {
-  console.log(`App is listening to port: ${PORT}`);
-});
-
-mongoose.connect(mongoDBURL)
+mongoose
+  .connect(mongoDBURL)
+  .then(() => {
+    console.log('App Connected to database');
+    app.listen(PORT, () => {
+      console.log(`App is listening to port: ${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  })
