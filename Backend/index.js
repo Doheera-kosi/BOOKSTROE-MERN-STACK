@@ -1,10 +1,12 @@
 import express, { response } from "express";
 import { PORT, mongoDBURL } from "./config.js";
 import mongoose from 'mongoose'
-import { Book } from "./models/bookModels.js";
+import { Book } from "./models/bookModel.js";
 
 
 const app = express();
+
+app.use(express.json());
 
 app.get('/', (request, response) => {
   console.log(request)
@@ -35,7 +37,7 @@ app.post('/books', async (request, response) => {
   }
   catch (error) {
     console.log(error.message);
-    response(500).send({ message: error.message})
+    response.status(500).send({ message: error.message })
   }
 });
 
