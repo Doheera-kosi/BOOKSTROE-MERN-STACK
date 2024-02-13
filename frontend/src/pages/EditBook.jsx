@@ -1,10 +1,8 @@
-import React from 'react'
+// import React from 'react'
 
 const EditBook = () => {
   return (
-    <div>
-      
-    </div>
+    <div>EditBook</div>
   )
 }
 
