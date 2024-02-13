@@ -68,6 +68,42 @@ app.get('/books/:id', async (request, response) => {
   }
 });
 
+// Route for updating book
+app.put('/books/:id', async (request, response) => {
+  try {
+    const { id } = request.params;
+
+    // Extract the fields you want to update from the request body
+    const { title, author, publishYear } = request.body;
+
+    // Check if all required fields are present in the request body
+    if (!title || !author || !publishYear) {
+      return response.status(400).send({
+        message: 'Send all required fields: title, author, publishYear',
+      });
+    }
+
+    // Create an object containing the fields to update
+    const updateFields = { title, author, publishYear };
+
+    // Find and update the book by ID
+    const result = await Book.findByIdAndUpdate(id, updateFields);
+
+    // If no book was found with the given ID, return a 404 error
+    if (!result) {
+      return response.status(404).json({ message: 'Book Not Found' });
+    }
+
+    // If the book was successfully updated, return a success message
+    return response.status(200).send({ message: 'Book updated successfully!' });
+    
+  } catch (error) {
+    console.error('Error:', error);
+    response.status(500).send({ message: 'Internal Server Error' });
+  }
+});
+
+
 mongoose
   .connect(mongoDBURL)
   .then(() => {
