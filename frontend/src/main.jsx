@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom'; // Import ReactDOM from 'react-dom' for client-side rendering
+import ReactDOM from 'react-dom';
 import App from './App.jsx';
 import './index.css';
 import { BrowserRouter } from 'react-router-dom';
